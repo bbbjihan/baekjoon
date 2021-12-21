@@ -9,28 +9,21 @@ tar = [...set].sort((a,b)=>{
 });
 
 let fincnt = Number(input[2]);
-let fin = input[3];
-let low = 0;
-let high = tar.length-1;
-let mid = Math.floor((low+high)/2);
+let fin = input[3].split(' ');
 let result = '';
 let finft = 0;
-console.log(mid);
 
-for(let i = 0; i<fincnt; i++){
-    low = 0;
-    high = tar.length-1;
-    mid = Math.floor((low+high)/2);
-    finft = 0;
-    while(low!=high){
-        if(tar[mid]>fin[i]){high=mid}
-        if(tar[mid]<fin[i]){low=mid}
-        if(tar[mid]=fin[i]){finft = 1}
+for(let i = 0; i < fincnt; i++){
+    let low = 0;
+    let high = tar.length-1;
+    let mid = Math.floor((low+high)/2);
+    while(low != high){
+        if(tar[mid]<Number(fin[i])){low = mid+1}
+        else if(tar[mid]>Number(fin[i])){high = mid-1}
+        else{break;}
         mid = Math.floor((low+high)/2);
-        console.log(mid);
-        if(low+1 == mid && mid+1 == high){low = high;}
     }
-    if(finft = 0){result+='0';}else{result+='1';}
+    if(tar[mid]==Number(fin[i])){result+='1'}else{result+='0'}
 }
 
-console.log(result);
+console.log(result.split('').join('\n'));
