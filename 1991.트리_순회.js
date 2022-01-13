@@ -1,36 +1,66 @@
 const fs = require('fs');
-let input = fs.readFileSync('input.txt').toString().trim().split('\n').map(c=>c.trim());
+let input = fs.readFileSync("input.txt").toString().trim().split('\n');
 
 let cntnode = input.shift();
+input = input.map(c=>c.trim().split(' '));
 
-let value_array = [];
-let leftptr_array = [];
-let rightptr_array = [];
-
-const create_node = (value,left,right) => { //노드생성
-    value_array.push(value);
-    leftptr_array.push(left);
-    rightptr_array.push(right);
+const getindex = (str) =>{
+    for(let i = 0; i<cntnode; i++){
+        if(input[i][0] == str){return i;}
+    }
 }
 
-const create_tree = (array) =>{ //트리생성
-    if(array.length==0){return;}
-    let node = array.shift();
-    create_node(node.split(' ')[0],node.split(' ')[1],node.split(' '))
-    create_tree(input);
+const getleftchild = (nodeindex) => {
+    return input[nodeindex][1];
 }
 
-const preorder = () =>{ //전위순회
-    
+const getrightchild = (nodeindex) => {
+    return input[nodeindex][2];
 }
 
-const inorder = () =>{  //중위순회
-
+let preorderstr = '';
+const preorder = (node_data) => {
+    let left = getleftchild(getindex(node_data));
+    let right = getrightchild(getindex(node_data));
+    preorderstr+=node_data;
+    if(left != '.'){
+        preorder(left);
+    }
+    if(right != '.'){
+        preorder(right);
+    }
 }
 
-const postorder = () =>{    //후위순회
-
+let inorderstr = '';
+const inorder = (node_data) =>{
+    let left = getleftchild(getindex(node_data));
+    let right = getrightchild(getindex(node_data));
+    if(left != '.'){
+        inorder(left);
+    }
+    inorderstr+=node_data;
+    if(right != '.'){
+        inorder(right);
+    }
 }
 
-create_tree(input);
-console.log(input);
+
+let postorderstr = '';
+const postorder = (node_data) => {
+    let left = getleftchild(getindex(node_data));
+    let right = getrightchild(getindex(node_data));
+    if(left != '.'){
+        postorder(left);
+    }
+    if(right != '.'){
+        postorder(right);
+    }
+    postorderstr+=node_data;
+}
+
+preorder('A');
+console.log(preorderstr);
+inorder('A');
+console.log(inorderstr);
+postorder('A');
+console.log(postorderstr);
