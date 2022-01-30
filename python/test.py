@@ -1,29 +1,24 @@
 import sys
+n = int(sys.stdin.readline())
 
-N,M = map(int,sys.stdin.readline().split())
+tmp = n
+power6 = -1
+while tmp>=1:
+    tmp = tmp/6
+    power6+=1
 
-didnt_listen = []
-didnt_see = []
-didnt_listenandsee = []
+tmp = n - 6 ** power6
+power3 = -1
+while tmp>=1:
+    tmp = tmp/3
+    power3+=1
 
-for i in range(N):
-    didnt_listen.append(sys.stdin.readline().rstrip())
+tmp = n - 6 ** power6 - 3 ** power3
+power2 = -1
+while tmp>=1:
+    tmp = tmp/2
+    power2+=1
 
-for i in range(M):
-    didnt_see.append(sys.stdin.readline().rstrip())
+plus1 = n - 6 ** power6 - 3 ** power3 - 2 ** power2
 
-def dup(small,big,target):
-    for i in small:
-        for j in big:
-            if i == j:
-                target.append(i)
-
-if N>M:
-    dup(didnt_see,didnt_listen,didnt_listenandsee)
-else:
-    dup(didnt_listen,didnt_see,didnt_listenandsee)
-
-didnt_listenandsee.sort()
-print(len(didnt_listenandsee))
-for i in didnt_listenandsee:
-    print(i)
+print(power6*2 + power3 + power2 + plus1)
