@@ -2,10 +2,8 @@ import sys;rl=sys.stdin.readline
 import itertools
 
 n,m=map(int,rl().split())
-li = list(map(int,rl().rstrip().split()))
-li.sort()
 
-it = itertools.combinations_with_replacement(li,m)
+it = itertools.combinations(range(1,n+1),m)
 
 for am in it:
   

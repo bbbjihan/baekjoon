@@ -5,7 +5,7 @@ n,m=map(int,rl().split())
 li = list(map(int,rl().rstrip().split()))
 li.sort()
 
-it = itertools.combinations_with_replacement(li,m)
+it = itertools.permutations(li,m)
 
 for am in it:
   
