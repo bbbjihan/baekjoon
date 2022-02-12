@@ -1,48 +1,19 @@
-def check_balancedstr(p):
-    if p.count('(') == p.count(')'):
-        return True
-    return False
+import sys;rl=sys.stdin.readline
+import math
 
-def check_goodstr(p):
-    queue = []
-    for i in p:
-        if i == '(':
-            queue.append(0)
-        elif len(queue) == 0:            
-            return False
-        else:
-            queue.pop()
-    if len(queue) == 0:
-        return True
-    return False
+a,b,c = map(int,rl().split())
 
-def sol4_4(p):
-    tmp = ''
-    for i in range(1,len(p)-1):
-        if p[i] =='(':
-            tmp+=')'
-        else:
-            tmp+='('
-    return tmp
-        
-def sol(p):
-    leng = len(p)
-    if leng == 0:
-        return ''
-    for i in range(leng):
-        if check_balancedstr(p[0:i+1]):
-            u = p[0:i+1]
-            v = p[i+1:leng]
-            break
-    if check_goodstr(u):
-        return u + sol(v)
+max_power = int(math.log2(b))
+dp = [1 for _ in range(max_power+1)]
+dp[1] = a%c
+for i in range(2,max_power+1):
+    dp[i] = (dp[i-1]**2)%c
+
+def sol(a,b,c): #(a^b)%c
+    Log2 = math.log2(b)
+    if int(Log2) == Log2:
+        return dp[Log2]
     else:
-        return '('+sol(v)+')' + sol4_4(u)
+        return (sol(a,2**Log2,c) * sol(a,b-2**Log2,c))%c
 
-def solution(p):
-    answer = ''
-    if check_goodstr(p):
-        return p
-    return sol(p)
-
-print(solution('()))((()'))
+print(sol(a,b,c))
