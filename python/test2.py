@@ -1,19 +1,42 @@
+from collections import deque
+from copy import deepcopy
 import sys;rl=sys.stdin.readline
-import math
+V,E = map(int,rl().split())
+K = int(rl())
+graph = [[200001 for _ in range(V)] for _ in range(V)]
 
-a,b,c = map(int,rl().split())
+for _ in range(E):
+    a,b,c = map(int,rl().split())
+    graph[a-1][b-1] = c
 
-max_power = int(math.log2(b))
-dp = [1 for _ in range(max_power+1)]
-dp[0] = a%c
-for i in range(1,max_power+1):
-    dp[i] = (dp[i-1]**2)%c
+visited = [False for _ in range(V)]
+ans = graph[K-1]
 
-def sol(a,b,c): #(a^b)%c
-    Log2 = math.log2(b)
-    if int(Log2) == Log2:
-        return dp[int(Log2)]
+def getmin():
+    Min = 200001
+    idx = -1
+    for i in range(V):
+        if visited[i] == False and ans[i] < Min:
+            Min = ans[i]
+            idx = i
+    return idx
+
+def dijkstra(start):
+    visited[start] = True
+    for i in range(V):
+        now = getmin()
+        visited[now] = True
+        for j in range(V):
+            if visited[j] == False:
+                if graph[now][j]+ans[now] < ans[j]:
+                    ans[j] = graph[now][K-1] = graph[now][j]+ans[now]
+
+dijkstra(getmin())
+
+ans[K-1] = 0
+
+for i in ans:
+    if i == 200001:
+        print('INF')
     else:
-        return (sol(a,2**int(Log2),c) * sol(a,b-2**int(Log2),c))%c
-
-print(sol(a,b,c))
+        print(i)
