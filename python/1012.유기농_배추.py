@@ -10,36 +10,36 @@ dy = [1,-1,0,0]
 
 T = int(sys.stdin.readline())
 
-def bfs(a,b):
-    queue = deque()
-    queue.append((a,b))
-    field[b][a] = 0
+def bfs(N,M):
+    cnt = 0
+    for b in range(N):
+        for a in range(M):
+            if field[b][a] == 1:
+                cnt+=1
+                queue = deque()
+                queue.append((a,b))
+                field[b][a] = 0
 
-    while queue:
-        x,y = queue.popleft()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if nx<0 or nx>=M or ny<0 or ny>=N:
-                continue
-            if field[ny][nx] == 1:
-                field[ny][nx] = 0
-                queue.append((nx,ny))
-    return
+                while queue:
+                    x,y = queue.popleft()
+                    for i in range(4):
+                        nx = x + dx[i]
+                        ny = y + dy[i]
+                        if nx<0 or nx>=M or ny<0 or ny>=N:
+                            continue
+                        if field[ny][nx] == 1:
+                            field[ny][nx] = 0
+                            queue.append((nx,ny))
+    return cnt
 
 for _ in range(T):
     M,N,K = list(map(int,sys.stdin.readline().split()))
     field = [[0 for _ in range(M)] for _ in range(N)]
-    cnt = 0
-
-    for _ in range(K): #배추심기
-        x,y = list(map(int,sys.stdin.readline().split()))
-        field[y][x] = 1
+    arr = []
+    for _ in range(K):
+        arr.append(list(map(int,sys.stdin.readline().split())))
     
-    for y in range(N):
-        for x in range(M):
-            if field[y][x] == 1:
-                bfs(x,y)
-                cnt+=1
+    for cabbage in arr: #배추심기
+        field[cabbage[1]][cabbage[0]] = 1
     
-    print(cnt)
+    print(bfs(N,M))
