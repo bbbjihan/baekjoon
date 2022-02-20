@@ -1,3 +1,4 @@
+#파라메트릭서치,머지소트트리,세그먼트트리
 from math import ceil, log2
 import sys;rl = sys.stdin.readline
 n,m = map(int,rl().split())
