@@ -39,7 +39,7 @@ def query(nodeIndex,targetStart,targetEnd):
 
 def change(n,changeValue):
     #An의 n번째 원소에 대한 트리의 리프에서의 인덱스를 구함.
-    nodeIndex = 2**(leafLevel-1)+n
+    nodeIndex = 2**(leafLevel-1)+n-1
     #리프노드에서부터 부모노드를 참조해가며 An의 n번째 원소를 포함한 모든 노드의 value를 수정해줌.
     while nodeIndex > 0:
         Tree[nodeIndex][0]+=changeValue-An[n-1]
@@ -49,5 +49,8 @@ def change(n,changeValue):
 init()
 for _ in range(Q):
     x,y,a,b = map(int,rl().split())
-    print(query(1,x,y))
+    if y < x:
+        print(query(1,y,x))
+    else:
+        print(query(1,x,y))
     change(a,b)
