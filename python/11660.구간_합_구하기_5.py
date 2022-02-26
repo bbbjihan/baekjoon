@@ -1,4 +1,3 @@
-from collections import deque
 import sys
 rl = sys.stdin.readline
 N, M = map(int, rl().split())
