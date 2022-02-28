@@ -1,0 +1,33 @@
+import sys;rl=sys.stdin.readline
+st = rl().rstrip()
+dicStr = dict()
+dicStr['A'] = 3
+dicStr['B'] = 3
+dicStr['C'] = 3
+dicStr['D'] = 4
+dicStr['E'] = 4
+dicStr['F'] = 4
+dicStr['G'] = 5
+dicStr['H'] = 5
+dicStr['I'] = 5
+dicStr['J'] = 6
+dicStr['K'] = 6
+dicStr['L'] = 6
+dicStr['M'] = 7
+dicStr['N'] = 7
+dicStr['O'] = 7
+dicStr['P'] = 8
+dicStr['Q'] = 8
+dicStr['R'] = 8
+dicStr['S'] = 8
+dicStr['T'] = 9
+dicStr['U'] = 9
+dicStr['V'] = 9
+dicStr['W'] = 10
+dicStr['X'] = 10
+dicStr['Y'] = 10
+dicStr['Z'] = 10
+time = 0
+for s in st:
+    time+=dicStr[s]
+print(time)
