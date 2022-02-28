@@ -17,6 +17,7 @@ while 1:
     else:
         n,k = inputLine
         items = list(map(int,rl().split()))
+        #노드가 1개 밖에 없는 경우 예외처리
         if n == 1:
             print(0)
             continue
