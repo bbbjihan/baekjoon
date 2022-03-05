@@ -3,4 +3,4 @@ a,b,c = map(int,rl().split())
 if b>=c:
     print(-1)
 else:
-    print(int(a/(c-b)))
+    print(int(a/(c-b))+1)

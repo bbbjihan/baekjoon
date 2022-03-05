@@ -40,8 +40,8 @@ while 1:
             nodes.append(Node(childItem,nodes[NonChildNodeIndex]))
         
         #TEST PRINT
-        #for node in nodes:
-        #    print('nodeItem: ',node.item,'nodeParent: ',node.parent,'nodeChild: ',node.child)
+        for node in nodes:
+            print('nodeItem: ',node.item,'nodeParent: ',node.parent,'nodeChild: ',node.child)
         
         cntCousin = 0
         targetIndex = items.index(k)
