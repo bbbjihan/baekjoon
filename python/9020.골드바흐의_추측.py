@@ -1,5 +1,5 @@
-from collections import deque
-import sys;rl=sys.stdin.readlines
+import sys;rl=sys.stdin.readline
+
 N = int(rl())
 Primes = [True for _ in range(10001)]
 for i in range(2,10000):
