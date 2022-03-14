@@ -1,3 +1,4 @@
+from copy import deepcopy
 import sys;rl=sys.stdin.readline
 
 N,M = map(int,rl().split())
