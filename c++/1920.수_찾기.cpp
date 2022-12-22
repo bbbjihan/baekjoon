@@ -51,9 +51,9 @@ int binarysearch(int array[], int len, int target){
 }
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
   int n = 0;
   cin>>n;
   int target[n]{};
