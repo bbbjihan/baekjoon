@@ -18,6 +18,7 @@ for i in range(N):
     elif line[j] == 1:
       walls.append([i,j])
     else:
+      viruses.append([i,j])
 
 combis = list(combinations(empties, 3))
 
