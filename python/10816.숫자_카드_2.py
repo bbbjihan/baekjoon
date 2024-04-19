@@ -1,16 +1,22 @@
-from collections import Counter
+import sys;rl = sys.stdin.readline
+N = int(rl())
+cards = list(map(int, rl().split(' ')))
+M = int(rl())
+numbers = list(map(int, rl().split(' ')))
 
-n = int(input())
-target = list(map(int,input().split()))
-m = int(input())
-finding = list(map(int,input().split()))
+cardDict = {}
 
-ans = ''
-cnt = Counter(target)
-for i in finding:
-  if i in cnt:
-    ans += str(cnt[i]) + ' '
+for card in cards:
+  if card in cardDict.keys():
+    cardDict[card] += 1
   else:
-    ans += '0 '
+    cardDict[card] = 1
 
-print(ans)
+result = []
+for number in numbers:
+  if number in cardDict.keys():
+    result.append(cardDict[number])
+  else:
+    result.append(0)
+
+print(*result)
