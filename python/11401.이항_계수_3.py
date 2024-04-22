@@ -11,10 +11,13 @@ def powerOfMod(base, exponent):
   a = powerOfMod(base, exponent // 2) % prime
   return a * a % prime
 
-T = int(rl())
-for _ in range(T):
-  N = int(rl())
-  if N == 1 or N == 2:
-    print(1)
-  else:
-    print(powerOfMod(2,N - 2))
+def getFactOfMod(num):
+  ret = 1
+  for i in range(1, num + 1):
+    ret *= i
+    ret %= prime
+  return ret
+
+N, K = list(map(int, rl().split(' ')))
+
+print(getFactOfMod(N) * powerOfMod((getFactOfMod(N-K) * getFactOfMod(K)), prime-2) % prime)
