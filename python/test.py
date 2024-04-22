@@ -1,20 +1,53 @@
 import sys;rl=sys.stdin.readline
+from collections import deque
 
-prime = 1000000007
+def outOfMap(position):
+  return position > N - 1 or position < 0
 
-def powerOfMod(base, exponent):
-  if exponent == 0:
-    return 1
-  elif exponent % 2 == 1:
-    return (powerOfMod(base, exponent - 1) * base) % prime
+N = int(rl())
 
-  a = powerOfMod(base, exponent // 2) % prime
-  return a * a % prime
+isWall = []
+for _ in range(N):
+  isWall.append(list(map(bool, rl().split())))
 
-T = int(rl())
-for _ in range(T):
-  N = int(rl())
-  if N == 1 or N == 2:
-    print(1)
+print(isWall)
+
+matrix = []
+for _ in range(N):
+  matrix.append(list(map(int, rl().split())))
+
+dq = deque([[1, 0, "H"]])
+result = 0
+while dq:
+  nowX, nowY, nowStatus = dq.popleft()
+  nowPosition = [nowX, nowY]
+  
+  if nowX == nowY == N -1:
+    result += 1
+    continue
+  
+  if nowStatus == "H":
+    if outOfMap(nowX + 1) or matrix[nowY][nowX + 1] == 1:
+      continue
+    dq.append([nowX + 1, nowY, "H"])
+    if outOfMap(nowY + 1) or matrix[nowY + 1][nowX] == 1 or matrix[nowY + 1][nowX + 1] == 1:
+      continue
+    dq.append([nowX + 1, nowY + 1, "C"])
+  elif nowStatus == "V":
+    if outOfMap(nowY + 1) or matrix[nowY + 1][nowX] == 1:
+      continue
+    dq.append([nowX, nowY + 1, "V"])
+    if outOfMap(nowX + 1) or matrix[nowY][nowX + 1] == 1 or matrix[nowY + 1][nowX + 1] == 1:
+      continue
+    dq.append([nowX + 1, nowY + 1, "C"])
   else:
-    print(powerOfMod(2,N - 2))
+    canGoRight = not outOfMap(nowX + 1) and matrix[nowY][nowX + 1] == 0
+    canGoDown = not outOfMap(nowY + 1) and matrix[nowY + 1][nowX] == 0
+    if canGoRight:
+      dq.append([nowX + 1, nowY, "H"])
+    if canGoDown:
+      dq.append([nowX, nowY + 1, "V"])
+    if canGoRight and canGoDown and not outOfMap(nowX + 1) and not outOfMap(nowY + 1) and matrix[nowY + 1][nowX + 1] == 0:
+      dq.append([nowX + 1, nowY + 1, "C"])
+
+print(result)
