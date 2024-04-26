@@ -1,37 +1,33 @@
 import sys;rl=sys.stdin.readline
-import heapq
-import math
+from collections import deque
 
-N,E = map(int, rl().split())
+N = int(rl())
 
-vertexes = [[] for _ in range(N + 1)]
-for _ in range(E):
-  a,b,c = map(int, rl().split())
-  vertexes[a].append([b,c])
-  vertexes[b].append([a,c])
+isWall = []
+for _ in range(N):
+  isWall.append(list(map(int, rl().split())))
 
-v1, v2 = map(int,rl().split())
+pathCounts = [[[0, 0, 0] for _ in range(N)] for _ in range(N)]
 
-def dijkstra(v1, v2):
-  dist = [math.inf for _ in range(N + 1)]
-  dist[v1] = 0
-  queue = []
-  heapq.heappush(queue, [0, v1])
-  
-  while queue:
-    distNow, vertexNow = heapq.heappop(queue)
-    
-    if dist[vertexNow] < distNow:
+pathCounts[0][1] = [1, 0, 0] #Horizontal, Vertical, Crossed
+
+for i in range(N):
+  for j in range(N):
+    if (i == 0 and j == 1) or isWall[i][j]:
       continue
+    nowCount = [0, 0, 0]
     
-    for vertexNext, distNext in vertexes[vertexNow]:
-      tmp = distNext + distNow
-      if dist[vertexNext] > tmp:
-        dist[vertexNext] = tmp
-        heapq.heappush(queue, [tmp, vertexNext])
-  
-  return dist[v2]
+    if j > 0:
+      nowCount[0] += pathCounts[i][j-1][0]
+      nowCount[0] += pathCounts[i][j-1][2]
+    
+    if i > 0:
+      nowCount[1] += pathCounts[i-1][j][1]
+      nowCount[1] += pathCounts[i-1][j][2]
+    
+    if i > 0 and j > 0 and not isWall[i-1][j] and not isWall[i][j-1]:
+      nowCount[2] += sum(pathCounts[i-1][j-1])
+    
+    pathCounts[i][j] = nowCount
 
-res = min(dijkstra(1, v1) + dijkstra(v1, v2) + dijkstra(v2, N),
-          dijkstra(1, v2) + dijkstra(v1, v2) + dijkstra(v1, N))
-print(res if res != math.inf else -1)
+print(sum(pathCounts[N-1][N-1]))
