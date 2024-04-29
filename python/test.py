@@ -7,20 +7,16 @@ board = []
 for _ in range(R):
   board.append(list(rl().strip()))
 
-alphas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-usedAlphas = {}
-for alpha in alphas:
-  usedAlphas[alpha] = False
+usedAlphas = [False for _ in range(26)]
 
-visited=[[ False for _ in range(C) ] for _ in range(R)]
-def dfs(Y,X):
-  if 0 <= Y <= R - 1 and 0 <= X <= C - 1 and not usedAlphas[board[Y][X]]:
-    visited[Y][X] = True
-    usedAlphas[board[Y][X]] = True
-    for i in range(4):
-      dfs(Y+dy[i], X+dx[i])
-    usedAlphas[board[Y][X]] = False
+def dfs(Y,X, cnt):
+  idx = ord(board[Y][X]) - 65
+  if 0 <= Y <= R - 1 and 0 <= X <= C - 1 and not usedAlphas[idx]:
+    usedAlphas[idx] = True
+    ret = max([dfs(Y+dy[i], X+dx[i], cnt + 1) for i in range(4)])
+    usedAlphas[idx] = False
+    return ret
+  else:
+    return cnt
 
-dfs(0,0)
-
-print(sum(list(map(sum,visited))))
+print(dfs(0,0,0))
