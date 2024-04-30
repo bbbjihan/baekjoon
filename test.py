@@ -1,27 +1,23 @@
 import sys;rl=sys.stdin.readline
 
-origin = rl().strip()
-bomb = rl().strip()
+n = int(rl())
 
-res = []
+vertexes = [[] for _ in range(n + 1)]
+for _ in range(n - 1):
+  a, b, dist = map(int,rl().split())
+  vertexes[a].append([b, dist])
+  vertexes[b].append([a, dist])
 
-def BOMB(res):
-  lenSt = len(res)
-  lenBomb = len(bomb)
-  if lenSt < lenBomb:
-    return
-  
-  for i in range(lenBomb):
-    if res[lenSt - lenBomb + i] != bomb[i]:
-      return
-  
-  del res[lenSt - lenBomb:]
+visited = [False for _ in range(n + 1)]
 
-lenBomb = len(bomb)
+def dfs(node, dist):
+  if visited[node]:
+    visited[node] = False
+    return node, dist
+  visited[node] = True
+  for nextNode, nextDist in vertexes[node]:
+    a, b = dfs(nextNode, nextDist + dist)
+    return a, max(dist, b)
 
-for c in origin:
-  res.append(c)
-  if c == bomb[lenBomb - 1]:
-    BOMB(res)
-
-print("".join(res) if len(res) else 'FRULA')
+a,b = dfs(1, 0)
+print(max(b, dfs(a, 0)[1]))
