@@ -1,3 +1,7 @@
-test = [1,2,3,4]
-del test[:2]
+test = [1,2,3]
+
+def t():
+  test = []
+
+t()
 print(test)
