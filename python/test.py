@@ -1,37 +1,35 @@
 import sys;rl=sys.stdin.readline
+from collections import deque
+import math
 
-inorder = list(rl().strip())
+N,K = map(int,rl().split())
 
-stack = []
+field = [math.inf for _ in range(300000)]
 
-def transfrom(nonBracketExpression, operators):
-  stackLoc = []
-  i = 0
-  while i < len(nonBracketExpression):
-    now = nonBracketExpression[i]
-    if now in operators:
-      prev = stackLoc.pop()
-      stackLoc.append(prev + nonBracketExpression[i + 1] + now)
-      i += 1
+dq = deque([[N, 0]])
+minDist = math.inf
+cnt = 0
+while dq:
+  now, dist = dq.popleft()
+  if now == K:
+    if dist <= minDist:
+      cnt += 1
+      minDist = dist
     else:
-      stackLoc.append(now)
-    i += 1
+      break
   
-  return stackLoc
+  if minDist < dist or field[now] < dist:
+    continue
+  
+  field[now] = dist
+  
+  nextDist = dist + 1
+  if nextDist <= minDist:
+    if now > 1:
+      dq.append([now - 1, nextDist])
+    if now < 100000:
+      dq.append([now + 1, nextDist])
+      dq.append([now * 2, nextDist])
 
-for c in inorder:
-  if c == ')':
-    lastEle = stack.pop()
-    inBracket = []
-    while lastEle != '(':
-      inBracket.append(lastEle)
-      lastEle = stack.pop()
-    trans1 = transfrom(inBracket[::-1],['*', '/'])
-    trans2 = ''.join(transfrom(trans1, ['+', '-']))
-    stack.append(trans2)
-  else:
-    stack.append(c)
-
-trans1 = transfrom(stack,['*', '/'])
-trans2 = ''.join(transfrom(trans1, ['+', '-']))
-print(''.join(trans2))
+print(minDist if minDist < math.inf else (N-K))
+print(cnt if cnt > 0 else 1)
