@@ -1,0 +1,10 @@
+{
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": [
+    "--line-length",
+    "88",
+    "--target-version",
+    "py38"
+  ],
+  "editor.formatOnSave": true
+}
