@@ -1,4 +1,3 @@
-
 import sys;rl=sys.stdin.readline
 
 N,M,Q = map(int,rl().split())
