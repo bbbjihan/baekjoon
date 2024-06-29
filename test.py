@@ -1,50 +1,22 @@
 import sys;rl=sys.stdin.readline
 
-T = int(rl())
+N, K = map(int,rl().split())
 
-def move(w, h, x, y, dir, isFront):
-    if dir == 0:
-        y = y + 1 if isFront else y - 1
-        if not h[0] <= y <= h[1]:
-            if isFront:
-                h[1] += 1
-            else:
-                h[0] -= 1
-    elif dir == 1:
-        x = x + 1 if isFront else x - 1
-        if not w[0] <= x <= w[1]:
-            if isFront:
-                w[1] += 1
-            else:
-                w[0] -= 1
-    elif dir == 2:
-        y = y - 1 if isFront else y + 1
-        if not h[0] <= y <= h[1]:
-            if isFront:
-                h[0] -= 1
-            else:
-                h[1] += 1
+commands = rl().strip()
+
+now = [0, 0]
+for i in range(N):
+    c = commands[i]
+    if c == 'U':
+        now[1] += 1
+    elif c == 'D':
+        now[1] -= 1
+    elif c == 'L':
+        now[0] -= 1
     else:
-        x = x - 1 if isFront else x + 1
-        if not w[0] <= x <= w[1]:
-            if isFront:
-                w[0] -= 1
-            else:
-                w[1] += 1
-    
-    return w, h, x, y
-
-for _ in range(T):
-    commands = rl()
-    w, h, x, y, dir = [0, 0], [0, 0], 0, 0, 0 # 0Up, 1Right, 2Down, 3Left
-    for command in commands:
-        if command == 'F':
-            w, h, x, y = move(w, h, x, y, dir, True)
-        elif command == 'B':
-            w, h, x, y = move(w, h, x, y, dir, False)
-        elif command == 'L':
-            dir = (dir - 1) % 4
-        elif command == 'R':
-            dir = (dir + 1) % 4
-    
-    print(abs(w[1] - w[0]) * abs(h[1] - h[0]))
+        now[0] += 1
+    if now[0] == 0 and now[1] == 0:
+        print("YES")
+        break
+else:
+    print('NO')

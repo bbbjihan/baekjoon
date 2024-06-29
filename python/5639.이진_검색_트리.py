@@ -1,5 +1,5 @@
 import sys #재귀 함수 처리순서 진짜 어렵다...
-sys.setrecursionlimit(10000000)
+sys.setrecursionlimit(100000000)
 preorder = []
 
 while True:
