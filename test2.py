@@ -1,15 +1,8 @@
-import sys;rl=sys.stdin.readline
-
-dict = {
-    "Algorithm": "204",
-    "DataAnalysis": "207",
-    "ArtificialIntelligence": "302",
-    "CyberSecurity": "B101",
-    "Network": "303",
-    "Startup": "501",
-    "TestStrategy": "105"
-}
-
-N = int(rl())
-for _ in range(N):
-    print(dict[rl().strip()])
+print(str(['a','b']))
+print(''.join(['a','b']))
+print('ab'[0])
+print('ab'[-1])
+print('ab'[-2:])
+print('a'[-2:])
+st = 'abcdef'
+print(st[:len(st)-2])
