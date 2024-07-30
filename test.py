@@ -1,51 +1,41 @@
+# O(N^2)
+# https://www.acmicpc.net/problem/10025
 import sys;rl=sys.stdin.readline
 
-N = int(rl())
+N, K = map(int,rl().split())
 
-board = []
-
-def get_time_str(time):
-    min = time // 60
-    sec = time % 60
-    return ('0' if min < 10 else '') + str(min) + ':' + ('0' if sec < 10 else '') + str(sec)
-
+ice = []
 for _ in range(N):
-    team, time = rl().split()
-    min = int(time[:2])
-    sec = int(time[-2:])
-    
-    time = min * 60 + sec
-    
-    board.append((time, int(team)))
+    weight, coord = map(int,rl().split())
+    ice.append((coord,weight))
 
-board.append((0, 0))
-board.append((48 * 60, 0))
-board.sort(key=lambda x:x[1])
-board.sort(key=lambda x:x[0])
-t1, t2, s1, s2 = 0, 0, 0, 0
-prev_winning = 0
+ice.sort(key=lambda x:x[0])
+sum_range = 2 * K + 1
+global_max = 0
+break_flag = False
 
-for i in range(1, N + 2):
-    time, team = board[i]
-    prev_time, _ = board[i-1]
-    time_diff = time - prev_time
+for i in range(N):
+    if break_flag:
+        break
     
-    if prev_winning == 1:
-        t1 += time_diff
-    elif prev_winning == 2:
-        t2 += time_diff
+    left, left_weight = ice[i]
+    right = left + sum_range - 1
+    local_sum = 0
     
-    if team == 1:
-        s1 += 1
-    elif team == 2:
-        s2 += 1
+    if right > ice[-1][0]:
+        right = ice[-1][0]
+        break_flag = True
     
-    if s1 > s2:
-        prev_winning = 1
-    elif s1 < s2:
-        prev_winning = 2
-    else:
-        prev_winning = 0
+    j = i
+    while True:
+        if j > N - 1:
+            break
+        now, now_weight = ice[j]
+        if now > right:
+            break
+        local_sum += now_weight
+        j += 1
+    
+    global_max = max(global_max, local_sum)
 
-print(get_time_str(t1))
-print(get_time_str(t2))
+print(global_max)
