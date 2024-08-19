@@ -1,7 +1,12 @@
-m, d = map(int,input().split())
+import sys;rl=sys.stdin.readline
 
-md = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-wd = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+n,m,q = map(int,rl().split())
 
-days = sum(md[0:m]) + d 
-print(wd[days % 7])
+teams = [[] for _ in range(n+1)]
+# [푼 수, 총 시간, 패널티]
+
+for _ in range(q):
+    time, team, quest, result = rl().split()
+    time, team, quest = int(time), int(team), int(quest)
+    
+    
