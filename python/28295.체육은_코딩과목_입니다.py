@@ -1,6 +1,5 @@
 import sys;rl=sys.stdin.readline
 
-    "N" : 3,
 d = 0
 for _ in range(10):
     c = int(rl())
