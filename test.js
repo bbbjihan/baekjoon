@@ -1,13 +1,13 @@
-console.log(`NFC West       W   L  T
------------------------
-Seattle        13  3  0
-San Francisco  12  4  0
-Arizona        10  6  0
-St. Louis      7   9  0
+const fs = require("fs");
+const input = fs.readFileSync("input.txt").toString();
 
-NFC North      W   L  T
------------------------
-Green Bay      8   7  1
-Chicago        8   8  0
-Detroit        7   9  0
-Minnesota      5  10  1`);
+const [a, b] = input.split(" ");
+
+const getCoord = (num) => {
+  return [(num - 1) % 4, Math.ceil(num / 4)];
+};
+
+const coordA = getCoord(a);
+const coordB = getCoord(b);
+
+console.log(Math.abs(coordA[0] - coordB[0]) + Math.abs(coordA[1] - coordB[1]));
