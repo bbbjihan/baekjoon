@@ -1,9 +1,5 @@
-import sys;rl=sys.stdin.readline
-N = int(rl())
-a = 0
-for _ in range(N):
-    d = int(rl().strip().split('D-')[1])
-    if d < 91:
-        a += 1
-
-print(a)
+n=int(input())
+for i in range(n-1):
+    print(('*' * (i + 1)) + (' ' * (2 * (n-i-1))) + ('*' * (i + 1)))
+for i in range(n-1, -1 ,-1):
+    print(('*' * (i + 1)) + (' ' * (2 * (n-i-1))) + ('*' * (i + 1)))
