@@ -1,4 +1,8 @@
-import sys;rl=sys.stdin.readline
-for _ in range(int(rl())):
-    n=int(rl())
-    print((n**4+6*n**3+11*n**2+6*n)>>3)
+x,y = map(int,input().split())
+a = x / y
+n = int(input())
+for _ in range(n):
+    x,y = map(int,input().split())
+    a = min(x / y, a)
+
+print(a*1000)
