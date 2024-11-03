@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "fs": "^0.0.1-security"
+  },
+  "scripts": {
+    "start": "nodemon --ext js,txt test.js"
   }
 }
