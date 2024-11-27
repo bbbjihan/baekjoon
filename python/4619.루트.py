@@ -7,3 +7,4 @@ while True:
         A += 1
     
     print(A if A ** N - B < B - (A-1) ** N else (A-1))
+    
