@@ -1,18 +1,25 @@
-import math
+N = int(input())
 
-N,M = map(int,input().split())
+lines = [list(map(int,input().split())) for _ in range(N)]
 
-for _ in range(N):
-    x, y = map(int,input().split())
-r,g,b = 0,0,0
-for _ in range(M):
-    x, y, z = input().split()
-    if z == 'R':
-        r += 1
-    elif z == 'G':
-        g += 1
+parents = [i for i in range(N)]
+
+def getParent(num):
+    if parents[num] != num:
+        parent = getParent(parents[num])
+        parents[num] = parent
+        return parent
+    return num
+
+def getIsSameGroup(nodeA, nodeB):
+    return getParent(nodeA) == getParent(nodeB)
+
+def union(nodeA, nodeB):
+    parentA, parentB = getParent(nodeA), getParent(nodeB)
+    if parentA > parentB:
+        parents[parentB] = parentA
     else:
-        b += 1
-u = r + math.ceil(g/2)
-v = b + math.floor(g/2)
-print('jhnah917' if u > v else "jhnan917")
+        parents[parentA] = parentB
+
+def getIsConnected(lineA, lineB):
+    
