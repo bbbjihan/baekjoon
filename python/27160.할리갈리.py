@@ -1,3 +1,5 @@
+# 백준 27160.할리갈리(https://www.acmicpc.net/problem/27160)
+
 N = int(input())
 
 x = [0] * 4
